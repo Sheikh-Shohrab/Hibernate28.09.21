@@ -11,9 +11,16 @@
 
 <div class="row">
     <div class="col-6">
-        <form:form action="${pageContext.request.contextPath }/country/add"
-                   modelAttribute="country">
+        <form:form action="${pageContext.request.contextPath }/country/add" modelAttribute="country">
             <div class="row">
+                
+               <%--  <div class="col-12">
+                    <div class="form-group">
+                        <label>Country ID</label>
+                        <form:input path="id"/> <br>
+                    </div>
+                </div> --%>
+                
                 <div class="col-12">
                     <div class="form-group">
                         <label>Country code</label>

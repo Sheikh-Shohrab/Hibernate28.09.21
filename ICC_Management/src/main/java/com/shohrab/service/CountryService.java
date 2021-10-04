@@ -1,6 +1,10 @@
 package com.shohrab.service;
 
 import java.util.ArrayList;
+
+
+
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,29 +21,20 @@ import com.shohrab.models.Country;
 
 @Service
 public class CountryService {
-	private final HibernateConfig hibernateConfig;
-
-	private static List<Country> countries = new ArrayList<Country>();
-
-	private static final String[] COUNTRIES = { "BANGLADESH", "USA", "JAPAN", "NEPAL", "IRELAND", "GERMAN", "CANADA" };
 
 	@Autowired
+	private HibernateConfig hibernateConfig;
+	private static List<Country> countries = new ArrayList<Country>();
+	
+	
 	public CountryService(HibernateConfig hibernateConfig) {
 		this.hibernateConfig = hibernateConfig;
 	}
-
-	private void addCountry(String countryName) {
-		// save the student object
-		var countryObj = new Country();
-		countryObj.setCountryName(countryName);
-		countryObj.setCountryCode(countryName.substring(0, 3));
-//		countries.add(countryObj);
-
-		// save the student object
-	}
-
+	
+	
 	@Transactional
 	public void addCountry(Country country) {
+		//this.countries.add(country);
 		var session = hibernateConfig.getSession();
 		// need to check transaction is active or not
 		var tx = session.getTransaction();
@@ -47,11 +42,11 @@ public class CountryService {
 			tx = session.beginTransaction();
 		country.setId(countries.size() + 1);
 		session.save(country);
-		session.flush();
-		tx.commit();
+		tx.commit();		
 	}
-
-
+	
+	
+	//searching from database
 	public Country getCountryByCode(String countryCode) {
 		// **************************** HQL Start ******************************//
 //		var session = hibernateConfig.getSession();
@@ -77,11 +72,11 @@ public class CountryService {
 
 		// **************************** Criteria Query End **************************//
 		return Optional.ofNullable(result.get(0))
-				.orElseThrow();
+				.orElse(null);
 	}
-
-	public List<Country> getAll() {
-
+	
+	public List<Country> getCountry(){
+		//return countries;
 		// **************************** HQL Start ******************************//
 //		 var session = hibernateConfig.getSession(); session.beginTransaction(); var
 //		 query = session .getEntityManagerFactory() .createEntityManager().createQuery("SELECT c from com.spring5.practice.model.Country c ",
@@ -105,4 +100,5 @@ public class CountryService {
 		// **************************** Criteria Query End **************************//
 		return countries;
 	}
+
 }

@@ -10,26 +10,30 @@
 <p style="color: red">${errors}</p>
 <body>
 
-	<h1>${pageTitle}</h1>
-
-    <div class="row">
+   	<h1>${pageTitle}</h1>
+   		<div class="row">
 		<div class="col-12">
 			<form:form action="${pageContext.request.contextPath }/player/add" modelAttribute="player">
-				<div class="row">
-					<div class="col-12">
-						<label>Player Type</label>
-						<form:input path="playerType" />
-					</div>
 					<div class="col-12">
 						<label>Player Type</label>
 						<form:input path="playerType" />
 					</div>
 					
+					<div>
+						<label>Select Team Name</label>
+						<select name="id">
+						<c:forEach items="${teams }" var="team">
+							<option value="${team.id }">
+								${team.teamName }
+							</option>
+						</c:forEach>
+					</select>
+					</div>
 					
+				
 					<div class="col-12">
 						<input type="submit" name="submit" value="Add Player">
 					</div>
-				</div>
 			</form:form>
 		</div>
 	</div>

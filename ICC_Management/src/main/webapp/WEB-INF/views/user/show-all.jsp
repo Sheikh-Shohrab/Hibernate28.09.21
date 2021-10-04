@@ -11,24 +11,18 @@
 	<table class="table">
 		<tr>
 			<th>ID</th>
-			<th>Student Name</th>
-			<th>Email</th>
+			<th>Name</th>
 			<th>Age</th>
 			<th>Gender</th>
-			<th>Country</th>
-			<th>Edit</th>
-			<th>Details</th>
 		</tr>
-		<c:forEach items="${students }" var="student">
+		<c:forEach items="${users}" var="user">
 			<tr>
-				<th>${ student.id }</th>
-				<th>${ student.name }</th>
-				<th>${ student.email }</th>
-				<th>${ student.age }</th>
-				<th>${ student.gender }</th>
-				<th>${ student.country.countryName }</th>
-				<th><a href="edit?id=${ student.id }">Edit</a></th>
-				<th><a href="details?id=${ student.id }">Details</a></th>
+				<th>${ user.id }</th>
+				<th>${ user.userName}</th>
+				<th>${ user.age }</th>
+				<th>${ user.gender }</th>
+				<th><a href="edit?id=${ user.id }">Edit</a></th>
+				<th><a href="details?id=${ user.id }">Details</a></th>
 			</tr>
 		</c:forEach>
 	</table>

@@ -1,49 +1,36 @@
 
 package com.shohrab.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name="team")
-public class Team {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name="team_id", nullable = false, unique = true)
-	private long id;
+public class Team extends BaseModel{
 	
-	@Column(name="team_name")
+	@Column(name="team_name",unique = true, nullable = false, updatable = false)
 	private String teamName;
-	
 
-	private List<Players> players;
+	@OneToOne
+	@JoinColumn(name = "c_id")
+	private Country countryId;
 	
 	public Team() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Team(long id, String teamName) {
+	public Team(String teamName) {
 		super();
-		this.id = id;
+		
 		this.teamName = teamName;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	
 
 	public String getTeamName() {
 		return teamName;
@@ -53,23 +40,16 @@ public class Team {
 		this.teamName = teamName;
 	}
 	
-	
-	public List<Players> getPlayers() {
-		return players;
+	public Country getCountry() {
+		return countryId;
 	}
 
-	public void setPlayers(List<Players> players) {
-		this.players = players;
+	public void setCountry(Country country) {
+		this.countryId = country;
 	}
 
 	@Override
 	public String toString() {
-		return "Team [id=" + id + ", teamName=" + teamName + "]";
+		return "Team [teamName=" + teamName + "]";
 	}
-
-	public String getTeamCode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

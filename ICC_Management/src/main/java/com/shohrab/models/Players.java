@@ -3,42 +3,42 @@ package com.shohrab.models;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="players")
-public class Players {
+public class Players extends BaseModel{
 	
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "player_id", unique = true, nullable = false)
-	private long id;
-	
-	@Column(name = "player_type")
+	@Column(name = "player_type", nullable = false, updatable = false)
 	private String playerType;
+	
+	@OneToOne
+	@JoinColumn(name = "team_id")
+	private Team team;
+
+	
 
 	public Players() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Players(long id, String playerType) {
+	public Players(String playerType) {
 		super();
-		this.id = id;
+		
 		this.playerType = playerType;
 	}
 
-	public long getId() {
-		return id;
+	public Team getTeam() {
+		return team;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setTeam(Team team) {
+		this.team = team;
 	}
+	
 
 	public String getPlayerType() {
 		return playerType;
@@ -50,7 +50,7 @@ public class Players {
 	
 	@Override
 	public String toString() {
-		return "Players [id=" + id + ", playerType=" + playerType + "]";
+		return "Players [playerType=" + playerType + "]";
 	}
 
 	

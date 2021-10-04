@@ -2,11 +2,11 @@ package com.shohrab.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.shohrab.models.Country;
@@ -36,16 +36,9 @@ public class CountryController {
 	@GetMapping("/country/show-all")
 	public String showAll_GET(Model model) {
 		model.addAttribute("pageTitle", "Country List");
-		model.addAttribute("countries", countryService.getAll());
+		model.addAttribute("countries", countryService.getCountry());
 		model.addAttribute("message", "Showing all countries");
 		return "country/show-all";
-	}
-
-	@GetMapping("/country/show/{code}")
-	public String showAll_GET(@PathVariable(name = "code") String code, Model model) {
-		model.addAttribute("country", countryService.getCountryByCode(code));
-		model.addAttribute("message", "Showing country with code");
-		return "country/show-by-code";
 	}
 
 }

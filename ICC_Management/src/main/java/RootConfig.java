@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("com.shohrab.service")
+@ComponentScan(basePackages={"com.shohrab.service"})
 
 public class RootConfig {
 	@Bean

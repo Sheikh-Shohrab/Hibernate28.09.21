@@ -11,13 +11,13 @@
 	<table class="table">
 		<tr>
 			<th>ID</th>
-			<th>Course Name</th>
+			<th>Team Name</th>
 		</tr>
-		<c:forEach items="${courses }" var="course">
+		<c:forEach items="${teams }" var="team">
 			<tr>
-				<th>${ course.courseId }</th>
-				<th>${ course.courseName }</th>
-				<th><a href="edit?id=${ course.courseId }">Edit</a></th>
+				<th>${ team.id }</th>
+				<th>${ team.teamName }</th>
+				<th><a href="edit?id=${ team.id }">Edit</a></th>
 			</tr>
 		</c:forEach>
 	</table>

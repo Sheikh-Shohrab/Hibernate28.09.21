@@ -3,10 +3,14 @@ package com.shohrab.config;
 import org.hibernate.Session;
 
 
+
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.reflections.Reflections;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.Entity;
 import javax.persistence.TypedQuery;
@@ -17,45 +21,46 @@ import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.util.Properties;
 
+@Component
+@EnableTransactionManagement
 public class HibernateConfig {
 
-    private SessionFactory sessionFactory = null;
 
+    private SessionFactory sessionFactory = null;
     private Session session;
 
-    public Session getSession() {
+    public Session getSession(){
         this.session = createAndGetLocalSessionFactoryBean().getCurrentSession();
-        return session != null ? this.session : createAndGetLocalSessionFactoryBean().openSession();
+        if(session!=null){
+            System.out.println("------------------------------------------------");
+            System.out.println("giving existing session");
+            return this.session;
+        }else {
+            System.out.println("------------------------------------------------");
+            System.out.println("creating new session");
+            return createAndGetLocalSessionFactoryBean().openSession();
+        }
+//        return session!=null? this.session : createAndGetLocalSessionFactoryBean().openSession();
     }
 
     public SessionFactory createAndGetLocalSessionFactoryBean() {
-        if (this.sessionFactory == null) {
-            try {
-                Configuration configuration = new Configuration();
-             /*  //----------------- configure with hibernate.cfg.xml-----------------
-                sessionFactory = new Configuration().configure().buildSessionFactory();
-                // or do the above line in step wise like below
+        if(this.sessionFactory==null){
+
+            try{
                 Configuration cfg = new Configuration();
-                cfg.configure("hibernate.cfg.xml");
-                sessionFactory = cfg.buildSessionFactory();
-                System.out.println(sessionFactory);
-                System.out.println(sessionFactory.isClosed());
-                //----------------- end configure with hibernate.cfg.xml-----------------  */
-
-                // Hibernate settings equivalent to hibernate.cfg.xml's properties
-                Properties settings = getBuiltProperties("hibernate.properties");
-
-                configuration.setProperties(settings);
-                configuration.addPackage("com.shohrab.models");
-                for (Class<?> clazz : (new Reflections("com.shohrab.models")).getTypesAnnotatedWith(Entity.class)) {
+                Properties setting = getBuiltProperties("hibernate.properties");
+                cfg.setProperties(setting);
+                cfg.addPackage("com.shohrab.models");
+                for( Class<?> clazz : (new Reflections("com.shohrab.models")).getTypesAnnotatedWith(Entity.class) ) {
                     if (!Modifier.isAbstract(clazz.getModifiers())) {
-                        configuration.addAnnotatedClass(clazz);
+                        cfg.addAnnotatedClass(clazz);
                     }
                 }
                 StandardServiceRegistryBuilder serviceRegistry = new StandardServiceRegistryBuilder()
-                        .applySettings(settings);
-                sessionFactory = configuration.buildSessionFactory(serviceRegistry.build());
-            } catch (Exception e) {
+                        .applySettings(setting);
+                sessionFactory = cfg.buildSessionFactory(serviceRegistry.build());
+
+            }catch (Exception e){
                 e.printStackTrace();
             }
         }
@@ -64,11 +69,12 @@ public class HibernateConfig {
 
     private Properties getBuiltProperties(String propertyFileName) {
         Properties properties = new Properties();
-        InputStream input = HibernateConfig.class
-                .getClassLoader().getResourceAsStream(propertyFileName);
-        try {
-            properties.load(input);
-        } catch (IOException e) {
+        InputStream inputStream = HibernateConfig.class
+                .getClassLoader()
+                .getResourceAsStream(propertyFileName);
+        try{
+            properties.load(inputStream);
+        }catch (Exception e){
             e.printStackTrace();
         }
         return properties;
@@ -90,7 +96,30 @@ public class HibernateConfig {
             tx = session.beginTransaction();
         }
         var result = session.getEntityManagerFactory().createEntityManager().createQuery(query);
+        session.flush();
         tx.commit();
         return result;
+    }
+
+//    @Transactional
+    public void saveObject(Object o){
+        var session = getSession();
+        var tx = session.getTransaction();
+        if (!tx.isActive()) {
+            tx = session.beginTransaction();
+        }
+        session.save(o);
+        tx.commit();
+    }
+
+    public void updateObject(Object o){
+        var session = getSession();
+        var tx = session.getTransaction();
+        if (!tx.isActive()) {
+            tx = session.beginTransaction();
+        }
+        sessionFactory.getCurrentSession().merge(o);
+        tx.commit();
+
     }
 }

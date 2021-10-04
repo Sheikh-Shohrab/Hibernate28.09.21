@@ -9,24 +9,31 @@
 <jsp:include page="../common/header.jsp"/>
 <p style="color: red">${errors}</p>
 <body>
-<div align="center">
 	<h1>${pageTitle}</h1>
     <div class="row">
 		<div class="col-12">
 			<form:form action="${pageContext.request.contextPath }/user/add" modelAttribute="user">
 				<div class="row">
+					
+					<%-- <div class="col-12">
+						<label>User ID:</label>
+						<form:input path="id" />
+					</div> --%>
+					
 					<div class="col-12">
-						<label>User Name :</label>
+						<label>Name:</label>
 						<form:input path="userName" />
 					</div>
 					
 					<div class="col-12">
-						<label>Gender    :</label>
-						<form:input path="gender" />
-					</div>
+	                    <div class="form-group">
+	                        <label>Gender</label>
+	                        <form:radiobuttons path="gender" items="${genders}" ></form:radiobuttons>
+	                    </div>
+                	</div>
 					
 					<div class="col-12">
-						<label>Age       :</label>
+						<label>Age:</label>
 						<form:input path="age" />
 					</div>
 					
@@ -36,7 +43,6 @@
 				</div>
 			</form:form>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

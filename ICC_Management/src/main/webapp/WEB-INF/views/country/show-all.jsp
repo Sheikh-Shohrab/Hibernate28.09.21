@@ -8,7 +8,10 @@
 <!-- GLOBAL HEADER -->
 <jsp:include page="../common/header.jsp"/>
 <body>
-	<h1>${pageTitle}</h1>
+	<p class = "success">
+		${message}
+	</p>
+	<h3>${pageTitle}</h3>
 	<table class="table">
 		<tr>
 			<th>ID</th>

@@ -12,11 +12,21 @@
 
 	<div class="row">
 		<div class="col-12">
-			<form:form action="${pageContext.request.contextPath }/team/add"
-					   modelAttribute="team">
+			<form:form action="${pageContext.request.contextPath }/team/add" modelAttribute="team">
 				<div class="col-12">
 					<label>Team Name</label>
 					<form:input path="teamName" />
+				</div>
+				
+				<div>
+					<label>Select Country Name</label>
+					<select name="countryCode">
+						<c:forEach items="${countries }" var="country">
+							<option value="${country.countryCode }">
+								${country.countryName }
+							</option>
+						</c:forEach>
+					</select>
 				</div>
 				
 				<div class="col-12">

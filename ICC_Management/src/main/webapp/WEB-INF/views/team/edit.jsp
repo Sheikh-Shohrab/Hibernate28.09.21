@@ -10,8 +10,7 @@
 
 	<h1>${pageTitle}</h1>
 
-	<form:form action="${pageContext.request.contextPath }/course/edit"
-		modelAttribute="course">
+	<form:form action="${pageContext.request.contextPath }/course/edit" modelAttribute="course">
 		<form:input path="courseId" value="${courseId}" hidden="hidden"/>
 		<form:input path="courseName" value="${courseName}" />
 		<br>

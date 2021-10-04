@@ -13,72 +13,14 @@
 
 <div class="row">
 	<div class="col-6">
-		<form:form action="${pageContext.request.contextPath }/student/update"
-				   modelAttribute="student">
+		<form:form action="${pageContext.request.contextPath }/player/update" modelAttribute="player">
 
 			<form:input path="id" value="${id}" type="hidden" ></form:input>
-<%--			<input type="hidden" value="${studentId}">--%>
+			<%-- <input type="hidden" value="${id}"> --%>
 			<div class="col-12">
 				<div class="form-group">
-					<label>Name</label>
-					<form:input path="name"></form:input>
-				</div>
-			</div>
-
-			<div class="col-12">
-				<div class="form-group">
-					<label>Age</label>
-					<form:input path="age"></form:input>
-				</div>
-			</div>
-
-			<div class="col-12">
-				<div class="form-group">
-					<label>Gender</label>
-					<form:radiobuttons path="gender" items="${genders}" ></form:radiobuttons>
-				</div>
-			</div>
-
-			<div class="col-12">
-				<div class="form-group">
-					<label>Email</label>
-					<form:input path="email"></form:input>
-				</div>
-			</div>
-
-			<div class="col-12">
-				<div class="form-group">
-					<label>Select a country</label>
-					<select  class="form-control" name="countryCode">
-						<option label="Please Select a country" disabled></option>
-						<c:forEach items="${countries}" var="country">
-							<option label="${country.countryName}"
-									value="${country.countryCode}"
-<%--									selected="${student.country.countryCode == country.countryCode}">--%>
-									${student.country.countryCode == country.countryCode? "selected" : ''}>
-
-							</option>
-
-						</c:forEach>
-					</select>
-<%--					<form:select class="form-control" path="countryCode">--%>
-<%--						<form:options items="${countries}" itemLabel="countryName" itemValue="countryCode"></form:options>--%>
-<%--					</form:select>--%>
-				</div>
-			</div>
-
-			<div class="col-12">
-				<div class="form-group">
-					<label>Select a course</label>
-					<select class="form-control" multiple="true"  name="courseCodes">
-<%--						<form:options items="${courses}" itemLabel="courseName" itemValue="courseCode"></form:options>--%>
-						<c:forEach items="${courses}" var="course">
-							<option value="${course.courseCode}"
-									 label="${course.courseName}" >${course.courseName}</option>
-						</c:forEach>
-					</select>
-<%--					<form:select path="courseCodes" multiple="true" items="${courses.courseCodes}"--%>
-<%--								 itemLabel="${courses.courseNames}" itemValue="${courses.courseCodes}"/>--%>
+					<label>Player Type</label>
+					<form:input path="playerType"></form:input>
 				</div>
 			</div>
 
