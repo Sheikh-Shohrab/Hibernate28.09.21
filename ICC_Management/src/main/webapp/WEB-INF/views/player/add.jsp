@@ -15,8 +15,16 @@
 		<div class="col-12">
 			<form:form action="${pageContext.request.contextPath }/player/add" modelAttribute="player">
 					<div class="col-12">
-						<label>Player Type</label>
-						<form:input path="playerType" />
+						<%-- <label>Player Type</label>
+						<form:input path="playerType" /> --%>
+						<label>Select Player Type</label>
+						<form:select path="playerType">  
+						    <form:option value="Batsman" label="Batsman"/>  
+						    <form:option value="Bowler" label="Bowler"/>  
+						    <form:option value="All-rounder" label="All-rounder"/>  
+						    <form:option value="Wicket-Keeper" label="Wicket-Keeper"/>  
+					 	</form:select>
+						
 					</div>
 					
 					<div>
@@ -30,6 +38,16 @@
 					</select>
 					</div>
 					
+					<div>
+						<label>Select Player Name</label>
+						<select name="uid">
+						<c:forEach items="${users }" var="user">
+							<option value="${user.id }">
+								${user.userName }
+							</option>
+						</c:forEach>
+					</select>
+					</div>
 				
 					<div class="col-12">
 						<input type="submit" name="submit" value="Add Player">

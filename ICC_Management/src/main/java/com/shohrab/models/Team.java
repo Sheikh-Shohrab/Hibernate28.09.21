@@ -1,6 +1,5 @@
 
 package com.shohrab.models;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -9,7 +8,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="team")
+@Table(name="team_tbl")
 public class Team extends BaseModel{
 	
 	@Column(name="team_name",unique = true, nullable = false, updatable = false)
@@ -17,7 +16,10 @@ public class Team extends BaseModel{
 
 	@OneToOne
 	@JoinColumn(name = "c_id")
-	private Country countryId;
+	private Country country;
+	
+//	@OneToMany(cascade = CascadeType.ALL)
+//	private List<Players> players;
 	
 	public Team() {
 		super();
@@ -40,12 +42,22 @@ public class Team extends BaseModel{
 		this.teamName = teamName;
 	}
 	
+
+
+//	public List<Players> getPlayers() {
+//		return players;
+//	}
+//
+//	public void setPlayers(List<Players> players) {
+//		this.players = players;
+//	}
+
 	public Country getCountry() {
-		return countryId;
+		return country;
 	}
 
 	public void setCountry(Country country) {
-		this.countryId = country;
+		this.country = country;
 	}
 
 	@Override

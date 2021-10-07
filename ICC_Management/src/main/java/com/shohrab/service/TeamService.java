@@ -1,7 +1,5 @@
 package com.shohrab.service;
 
-import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -10,35 +8,40 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shohrab.config.HibernateConfig;
-import com.shohrab.models.Country;
 import com.shohrab.models.Team;
+import com.shohrab.requestDto.TeamRequestDto;
 
 @Service
 public class TeamService {
 
 	@Autowired
 	private HibernateConfig hibernateConfig;
+	
 	@Autowired
 	private CountryService countryService;
 	
-	private List<Team> teams = new ArrayList<Team>();
 
 	public TeamService(HibernateConfig hibernateConfig) {
 		this.hibernateConfig = hibernateConfig;
 	}
 	
 	@Transactional
-	public void addTeam(Team team, String countryCode) {
+	public void addTeam(TeamRequestDto teamRequestDto) {
+		Team team = new Team();
+		BeanUtils.copyProperties(teamRequestDto, team);
+		
+		
 		var session = hibernateConfig.getSession();
 		var tx = session.getTransaction();
 		if(!tx.isActive())
 				tx = session.beginTransaction();
-		team.setId(teams.size()+1);
-		team.setCountry(countryService.getCountryByCode(countryCode));
+		team.setCountry(countryService.getCountryById(teamRequestDto.getCountryId()));
+		
 		session.save(team);
 		session.flush();
 		tx.commit();

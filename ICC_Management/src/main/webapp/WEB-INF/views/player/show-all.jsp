@@ -11,12 +11,15 @@
 	<table class="table">
 		<tr>
 			<th>ID</th>
+			<!-- <th>Player Name</th> -->
 			<th>Player Type</th>
-			
+			<!-- <th>Team Name</th> -->
 		</tr>
 		<c:forEach items="${players }" var="player">
 			<tr>
 				<th>${ player.id }</th>
+				<%-- <th>${player. team}</th>
+				<th>${ }</th> --%>
 				<th>${ player.playerType }</th>
 				
 				<th><a href="edit?id=${ player.id }">Edit</a></th>

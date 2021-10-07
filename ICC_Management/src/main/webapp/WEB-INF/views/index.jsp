@@ -45,7 +45,6 @@
 					</div>
 				</div>
 				
-				
 				<div class="col-sm-12">
 					<div class="card mb-2">
 						<div class="card-body">
@@ -84,7 +83,6 @@
 					</div>
 				</div>
 				
-
 			</div>
 
 		</div>

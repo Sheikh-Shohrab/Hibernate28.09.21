@@ -3,12 +3,12 @@ package com.shohrab.models;
 import javax.persistence.Column;
 
 
+
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tbl_contry")
+@Table(name="country_tbl")
 public class Country extends BaseModel{
 
 	

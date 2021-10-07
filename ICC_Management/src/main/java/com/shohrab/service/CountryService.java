@@ -47,7 +47,7 @@ public class CountryService {
 	
 	
 	//searching from database
-	public Country getCountryByCode(String countryCode) {
+	public Country getCountryById(String id) {
 		// **************************** HQL Start ******************************//
 //		var session = hibernateConfig.getSession();
 //		var transaction = session.beginTransaction();
@@ -63,7 +63,7 @@ public class CountryService {
 		CriteriaBuilder cb = hibernateConfig.getCriteriaBuilder();
 		CriteriaQuery<Country> cq = cb.createQuery(Country.class);
 		Root<Country> root = cq.from(Country.class);
-		cq.where(cb.equal(root.get("countryCode"), countryCode));
+		cq.where(cb.equal(root.get("id"), Long.parseLong(id)));
 		var result = hibernateConfig.getSession()
 				.getEntityManagerFactory()
 				.createEntityManager()

@@ -20,14 +20,25 @@
 				
 				<div>
 					<label>Select Country Name</label>
-					<select name="countryCode">
+					<form:select path="countryId">
 						<c:forEach items="${countries }" var="country">
-							<option value="${country.countryCode }">
+							<form:option value="${country.id }">
 								${country.countryName }
+							</form:option>
+						</c:forEach>
+					</form:select>
+				</div>
+				
+				<%-- <div>
+					<label>Select Player Name</label>
+					<select name="id">
+						<c:forEach items="${users }" var="user">
+							<option value="${user.id }">
+								${player.userName }
 							</option>
 						</c:forEach>
 					</select>
-				</div>
+				</div> --%>
 				
 				<div class="col-12">
 					<input type="submit" name="submit" value="Add Team">
